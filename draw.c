@@ -26,7 +26,7 @@ define a single triangle surface.
 04/16/13 13:05:59
 jdyrlandweaver
 ====================*/
-void add_polygon( struct matrix *polygons, 
+void add_polygons( struct matrix *polygons, 
 		  double x0, double y0, double z0, 
 		  double x1, double y1, double z1, 
 		  double x2, double y2, double z2 ) {
