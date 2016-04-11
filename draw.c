@@ -111,7 +111,7 @@ void add_sphere( struct matrix * points,
 
   temp = new_matrix( 4, num_steps * num_steps );
   //generate the points on the sphere
-  generate_sphere( temp, cx, cy, r, step );
+  //generate_sphere( temp, cx, cy, r, step );
 
   int latStop, longStop, latStart, longStart;
   latStart = 0;
@@ -121,19 +121,19 @@ void add_sphere( struct matrix * points,
   
   for ( lat = latStart; lat < latStop; lat++ ) {
     for ( longt = longStart; longt < longStop; longt++ ) {
-      
+   
       index = lat * (num_steps+1) + longt;
-      add_polygon( points, temp->m[0][index],
-		temp->m[1][index],
-		temp->m[2][index],
-		temp->m[0][index] + 1,
-		temp->m[1][index] + 1,
-		temp->m[2][index],
-		temp->m[0][index + 2],
-		temp->m[1][index + 2],
-		temp->m[2][index + 2]);
+      add_polygons( points, temp->m[0][index],
+		    temp->m[1][index],
+		    temp->m[2][index],
+		    temp->m[0][index] + 1,
+		    temp->m[1][index] + 1,
+		    temp->m[2][index],
+		    temp->m[0][index + 2],
+		    temp->m[1][index + 2],
+		    temp->m[2][index + 2]);
     }//end points only
-  }
+  } 
   free_matrix(temp);
 }
 
@@ -303,30 +303,42 @@ void add_box( struct matrix * points,
   y2 = y - height;
   z2 = z - depth;
 
-  add_edge( points, 
-	    x, y, z, 
-	    x, y, z );
-  add_edge( points, 
-	    x, y2, z, 
-	    x, y2, z );
-  add_edge( points, 
-	    x2, y, z, 
-	    x2, y, z );
-  add_edge( points, 
-	    x2, y2, z, 
-	    x2, y2, z );
-  add_edge( points, 
-	    x, y, z2, 
-	    x, y, z2 );
-  add_edge( points, 
-	    x, y2, z2, 
-	    x, y2, z2 );
-  add_edge( points, 
-	    x2, y, z2, 
-	    x2, y, z2 );
-  add_edge( points, 
-	    x2, y2, z2, 
-	    x2, y2, z2 );
+  //front face
+  add_polygons( points, 
+		x, y, z, 
+		x, y2, z,
+		x2, y2, z);
+  add_polygons( points, 
+		x, y, z, 
+		x2, y, z,
+		x2, y2, z);
+  //back face
+  add_polygons( points, 
+		x, y, z2, 
+		x, y2, z2,
+		x2, y2, z2);
+  add_polygons( points, 
+		x, y, z2, 
+		x, y2, z2,
+		x2, y2, z2);
+  //top face
+  add_polygons( points, 
+		x, y, z, 
+		x, y, z2,
+		x2, y, z);
+  add_polygons( points, 
+		x, y, z2, 
+		x, y, z2,
+		x2, y, z);
+  //bottom face NOT DONE
+  add_polygons( points, 
+		x, y2, z, 
+		x, y2, z2,
+		x2, y2, z);
+  add_polygons( points, 
+		x, y2, z2, 
+		x, y2, z2,
+		x2, y2, z);
 }
   
 /*======== void add_circle() ==========
