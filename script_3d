@@ -1,15 +1,20 @@
 #test basic polygon
-triangle
-100 100 0 200 100 0 100 200 0
+#triangle
+#100 100 0 200 100 0 100 200 0
+#display
+#clear the edge and test box
+#clear
+box
+200 250 0 50 50 25
 display
 #clear the edge matrix and test sphere
-clear
-sphere
-0 0 200
-display
+#clear
+#sphere
+#0 0 200
+#display
 #clear the edge matrix and test torus
-clear
-torus
-0 0 25 150
-display
+#clear
+#torus
+#0 0 25 150
+#display
 quit

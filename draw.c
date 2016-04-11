@@ -297,12 +297,18 @@ void generate_torus( struct matrix * points,
 void add_box( struct matrix * points,
 	      double x, double y, double z,
 	      double width, double height, double depth ) {
-
-  double x2, y2, z2;
+ 
+  double x2, y2, z2, x3, y3, z3, x4, y4, z4;
   x2 = x + width;
   y2 = y - height;
   z2 = z - depth;
-
+  x3 = x + depth * cos( M_PI / 4 );
+  y3 = y + height * sin( M_PI / 4 );
+  //  z3 = z + depth * sin( M_PI / 4 );
+  x4 = x2 + depth * cos( M_PI / 4 );
+  y4 = y2 + height * sin( M_PI / 4 );
+  
+  printf("\npno\n");
   //front face
   add_polygons( points, 
 		x, y, z, 
@@ -310,9 +316,9 @@ void add_box( struct matrix * points,
 		x2, y2, z);
   add_polygons( points, 
 		x, y, z, 
-		x2, y, z,
-		x2, y2, z);
-  //back face
+		x2, y2, z,
+		x2, y, z);
+  /*  //back face
   add_polygons( points, 
 		x, y, z2, 
 		x, y2, z2,
@@ -320,25 +326,27 @@ void add_box( struct matrix * points,
   add_polygons( points, 
 		x, y, z2, 
 		x, y2, z2,
-		x2, y2, z2);
+		x2, y2, z2); */
   //top face
   add_polygons( points, 
 		x, y, z, 
-		x, y, z2,
+		x3, y3, z2,
 		x2, y, z);
   add_polygons( points, 
-		x, y, z2, 
-		x, y, z2,
-		x2, y, z);
-  //bottom face NOT DONE
+		x2, y, z, 
+		x3, y3, z2,
+		x4, y3, z2);
+  //right face
   add_polygons( points, 
-		x, y2, z, 
-		x, y2, z2,
-		x2, y2, z);
+		x2, y, z, 
+		x2, y2, z,
+		x4, y4, z2);
   add_polygons( points, 
-		x, y2, z2, 
-		x, y2, z2,
-		x2, y2, z);
+		x4, y4, z2, 
+		x2, y, z,
+		x4, y3, z2);
+  
+  print_matrix( points );
 }
   
 /*======== void add_circle() ==========

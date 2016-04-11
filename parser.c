@@ -135,8 +135,9 @@ void parse_file ( char * filename,
     else if ( strncmp(line, "box", strlen(line)) == 0 ) {
       fgets(line, 255, f);
       sscanf(line, "%lf %lf %lf %lf %lf %lf", &x, &y, &z, &x1, &y1, &z1);
-      add_box(pm, x, y, z, x1, y1, z1);
-      // printf( "%lf %lf %lf %lf %lf %lf\n", x, y, z, x1, y1, z1);
+      printf("\nbefore add_box \n");
+      add_box( pm, x, y, z, x1, y1, z1 );
+      printf( "%lf %lf %lf %lf %lf %lf\n", x, y, z, x1, y1, z1);
     }
     else if ( strncmp(line, "triangle", strlen(line)) == 0 ) {
       fgets(line, 255, f);
@@ -208,7 +209,7 @@ void parse_file ( char * filename,
       matrix_mult(transform, pm);
     }
     else if ( strncmp(line, "display", strlen(line)) == 0 ) {
-      clear_screen(s);
+      //    clear_screen(s);
       draw_polygons(pm, s, g);
       display(s);
     }
