@@ -82,13 +82,13 @@ void parse_file ( char * filename,
   struct matrix * tmp;
   double angle;
   color g;
-
+    
   g.red = 0;
   g.green = 255;
   g.blue = 0;
   
   clear_screen(s);
-
+  
   if ( strcmp(filename, "stdin") == 0 ) 
     f = stdin;
   else
@@ -137,6 +137,12 @@ void parse_file ( char * filename,
       sscanf(line, "%lf %lf %lf %lf %lf %lf", &x, &y, &z, &x1, &y1, &z1);
       add_box(pm, x, y, z, x1, y1, z1);
       // printf( "%lf %lf %lf %lf %lf %lf\n", x, y, z, x1, y1, z1);
+    }
+    else if ( strncmp(line, "triangle", strlen(line)) == 0 ) {
+      fgets(line, 255, f);
+      sscanf(line, "%lf %lf %lf %lf %lf %lf %lf %lf %lf", &x, &y, &z, &x1, &y1, &z1, &x2, &y2, &z2 );
+      add_polygons( pm, x, y, z, x1, y1, z1, x2, y2, z2 );
+      //      print_matrix( pm );
     }
     else if (strncmp(line, "sphere", strlen(line)) == 0 ) {
       fgets(line, 255, f);
@@ -203,14 +209,14 @@ void parse_file ( char * filename,
     }
     else if ( strncmp(line, "display", strlen(line)) == 0 ) {
       clear_screen(s);
-      draw_lines(pm, s, g);
+      draw_polygons(pm, s, g);
       display(s);
     }
     else if ( strncmp(line, "save", strlen(line)) == 0 ) {
       fgets(line, 255, f);
       // line[strlen(line)-1] = '\0';
       clear_screen(s);
-      draw_lines(pm, s, g);
+      draw_polygons(pm, s, g);
       save_extension(s, line);
     }
     else if ( strncmp(line, "clear", strlen(line)) == 0 ) {

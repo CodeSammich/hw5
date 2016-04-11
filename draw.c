@@ -52,7 +52,8 @@ void draw_polygons( struct matrix *polygons, screen s, color c ) {
   struct matrix* edge_temp = new_matrix( 4, 4);  //edge is a point matrix
   int counter = 0;
   int x, y, z, x1, y1, z1, x2, y2, z2;
-  for(; counter <= polygons -> cols; counter += 3 ) { //3 points per triangle
+  int number_of_cols = polygons -> cols;
+  for(; counter <= number_of_cols; counter += 3 ) { //3 points per triangle
       x = polygons -> m[0][counter];
       y = polygons -> m[1][counter];
       z = polygons -> m[2][counter];
@@ -69,7 +70,14 @@ void draw_polygons( struct matrix *polygons, screen s, color c ) {
       add_edge( edge_temp, x1, y1, z1, x2, y2, z2 );
       add_edge( edge_temp, x2, y2, z2, x, y, z );
   }
+  //print_matrix(edge_temp);
   draw_lines( edge_temp, s, c );
+  
+  grow_matrix( polygons, edge_temp -> cols);
+  copy_matrix( edge_temp, polygons );
+  //  print_matrix(polygons);
+
+  //  printf("after draw_lines");
 }
 
 
@@ -92,7 +100,7 @@ void draw_polygons( struct matrix *polygons, screen s, color c ) {
 void add_sphere( struct matrix * points, 
 		 double cx, double cy, double r, 
 		 int step ) {
-
+  /*may have to rewrite to fit polygon version */
   struct matrix * temp;
   int lat, longt;
   int index;
@@ -115,12 +123,15 @@ void add_sphere( struct matrix * points,
     for ( longt = longStart; longt < longStop; longt++ ) {
       
       index = lat * (num_steps+1) + longt;
-      add_edge( points, temp->m[0][index],
+      add_polygon( points, temp->m[0][index],
 		temp->m[1][index],
 		temp->m[2][index],
 		temp->m[0][index] + 1,
 		temp->m[1][index] + 1,
-		temp->m[2][index] );
+		temp->m[2][index],
+		temp->m[0][index + 2],
+		temp->m[1][index + 2],
+		temp->m[2][index + 2]);
     }//end points only
   }
   free_matrix(temp);

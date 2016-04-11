@@ -22,14 +22,14 @@ int main( int argc, char** argv ) {
   edges = new_matrix(4, 4);
   transform = new_matrix(4, 4);
   polygons = new_matrix( 4, 4 );
-
+  /*
   clear_screen( s );
   
   add_polygons( polygons, 100, 100, 0, 200, 100, 0, 100, 200, 0 );
   draw_polygons( polygons, s, c );
-
+  
   display( s );
-
+  */
   if ( argc == 2 )
     parse_file( argv[1], transform, edges, s );
   else
