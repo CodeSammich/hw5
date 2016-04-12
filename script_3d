@@ -10,11 +10,13 @@ display
 #clear the edge matrix and test sphere
 #clear
 #sphere
-#0 0 200
+#250 250 200
 #display
 #clear the edge matrix and test torus
 #clear
 #torus
 #0 0 25 150
 #display
+#save
+#box_image.png
 quit

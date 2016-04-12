@@ -75,6 +75,7 @@ void draw_polygons( struct matrix *polygons, screen s, color c ) {
   
   grow_matrix( polygons, edge_temp -> cols);
   copy_matrix( edge_temp, polygons );
+  free_matrix( edge_temp );
   //  print_matrix(polygons);
 
   //  printf("after draw_lines");
@@ -111,8 +112,27 @@ void add_sphere( struct matrix * points,
 
   temp = new_matrix( 4, num_steps * num_steps );
   //generate the points on the sphere
-  //generate_sphere( temp, cx, cy, r, step );
+  generate_sphere( temp, cx, cy, r, step );
+  //  print_matrix( temp );
+  
+  index = 0;
+  while( index < temp -> cols ) {
 
+    printf( "inside\n");
+    add_polygons( points, temp->m[0][index],
+		  temp->m[1][index],
+		  temp->m[2][index],
+		  temp->m[0][index + 1],
+		  temp->m[1][index + 1],
+		  temp->m[2][index + 1],
+		  temp->m[0][index + 2],
+		  temp->m[1][index + 2],
+		  temp->m[2][index + 2]);
+    index ++;
+  }
+  print_matrix( points );
+  //  draw_lines( temp, s, c );
+    /*
   int latStop, longStop, latStart, longStart;
   latStart = 0;
   latStop = num_steps;
@@ -122,7 +142,7 @@ void add_sphere( struct matrix * points,
   for ( lat = latStart; lat < latStop; lat++ ) {
     for ( longt = longStart; longt < longStop; longt++ ) {
    
-      index = lat * (num_steps+1) + longt;
+    index = lat * (num_steps+1) + longt; 
       add_polygons( points, temp->m[0][index],
 		    temp->m[1][index],
 		    temp->m[2][index],
@@ -132,8 +152,11 @@ void add_sphere( struct matrix * points,
 		    temp->m[0][index + 2],
 		    temp->m[1][index + 2],
 		    temp->m[2][index + 2]);
+      /
     }//end points only
-  } 
+  
+    } */
+
   free_matrix(temp);
 }
 
